@@ -1,6 +1,6 @@
 /* pages/writeCaiJi/writeCaiJi.wxss */
 
-.bp{
+.bp {
     /* background-color: #ddd; */
 }
 
@@ -32,7 +32,7 @@
     min-height: 177px;
 }
 
-.btn{
+.btn {
     position: fixed;
     bottom: 0px;
     left: 0px;
@@ -40,6 +40,6 @@
     border-radius: 0;
 }
 
-.btn::after{
+.btn::after {
     border-radius: 0;
 }
