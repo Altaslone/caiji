@@ -1,0 +1,45 @@
+/* pages/writeCaiJi/writeCaiJi.wxss */
+
+.bp{
+    /* background-color: #ddd; */
+}
+
+.label-title {
+    padding-left: 18px;
+    font-size: smaller;
+    color: #aaa;
+}
+
+.picker-border {
+    padding: 10px 0px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    border-top: 1px solid #bbb;
+    border-bottom: 1px solid #bbb;
+}
+
+.picker {
+    padding-left: 18px;
+}
+
+.picker-content {
+    padding-left: 36px;
+}
+
+.remark-border {
+    margin: 0px 18px;
+    border: 1px solid #ccc;
+    min-height: 177px;
+}
+
+.btn{
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    border-radius: 0;
+}
+
+.btn::after{
+    border-radius: 0;
+}

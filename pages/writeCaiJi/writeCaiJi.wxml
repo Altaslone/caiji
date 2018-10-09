@@ -1,0 +1,44 @@
+<!--pages/writeCaiJi/writeCaiJi.wxml-->
+
+<view class='bp'>
+
+    <view class="picker-time">
+        <view class="label-title">时间</view>
+        <picker class='picker-border' mode="time" value="{{time}}" start="00:00:00" end="23:59:59" bindchange="bindTimeChange">
+            <view class="picker">
+                当前时间
+                <text class='picker-content'>{{time}}</text>
+            </view>
+        </picker>
+    </view>
+
+    <view class="picker-date">
+        <view class="label-title">日期</view>
+        <picker class='picker-border' mode="date" value="{{date}}" start="2018-01-01" end="{{today}}" bindchange="bindDateChange">
+            <view class="picker">
+                当前日期
+                <text class='picker-content'>{{date}}</text>
+            </view>
+        </picker>
+    </view>
+
+    <view class="picker-type">
+        <view class="label-title">类别</view>
+        <picker class='picker-border' bindchange='bindTypePicker' value="{{index}}" range="{{type}}">
+            <view class="picker">
+                当前类别
+                <text class='picker-content'>{{type[index]}}</text>
+            </view>
+        </picker>
+    </view>
+
+    <view class="picker-remark">
+        <view class="label-title">备注</view>
+        <view class='remark-border'>
+            <textarea bindblur="bindTextAreaBlur" auto-height placeholder="" />
+        </view>
+    </view>
+
+    <button class='btn' type="warn" bindtap="warn"> 保存 </button>
+
+</view>
