@@ -23,6 +23,13 @@ Page({
         } else if (this.data.canIUse) {
             // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回 所以此处加入 callback 以防止这种情况
             app.userInfoReadyCallback = res => {
+
+                let userInfo = res.userInfo;
+
+                wx.setStorageSync('nickName', userInfo.nickName);
+                wx.setStorageSync('avatarUrl', userInfo.avatarUrl);
+                wx.setStorageSync('gender', userInfo.gender);
+
                 this.setData({
                     userInfo: {
                         nickName: wx.getStorageSync('nickName'),
@@ -30,18 +37,69 @@ Page({
                     },
                     hasUserInfo: true
                 });
+
+                wx.request({
+                    url: 'https://caiji.dahang.xyz',
+                    header: {
+                        'content-type': 'application/x-www-form-urlencoded',
+                        'caiji': 'v0.1'
+                    },
+                    data: {
+                        req: 'updateUserInfo',
+                        id: wx.getStorageSync('uid'),
+                        openId: wx.getStorageSync('openId'),
+                        name: userInfo.nickName,
+                        avatar: userInfo.avatarUrl,
+                        gender: userInfo.gender
+                    },
+                    method: 'POST',
+                    dataType: 'json',
+                    responseType: 'text',
+                    success: function(r) {},
+                    fail: function(r) {},
+                    complete: function(r) {}
+                });
             }
 
         } else {
             // 在没有 open-type=getUserInfo 版本的兼容处理
             wx.getUserInfo({
                 success: res => {
+
+                    let userInfo = res.userInfo;
+
+                    wx.setStorageSync('nickName', userInfo.nickName);
+                    wx.setStorageSync('avatarUrl', userInfo.avatarUrl);
+                    wx.setStorageSync('gender', userInfo.gender);
+
                     this.setData({
                         userInfo: {
-                            nickName: wx.getStorageSync('nickName'),
-                            avatarUrl: wx.getStorageSync('avatarUrl')
+                            nickName: userInfo.nickName,
+                            avatarUrl: userInfo.avatarUrl
                         },
                         hasUserInfo: true
+                    });
+
+                    wx.request({
+                        url: 'https://caiji.dahang.xyz',
+                        header: {
+                            'content-type': 'application/x-www-form-urlencoded',
+                            'caiji': 'v0.1'
+                        },
+                        data: {
+                            req: 'updateUserInfo',
+                            id: wx.getStorageSync('uid'),
+                            openId: wx.getStorageSync('openId'),
+                            name: userInfo.nickName,
+                            avatar: userInfo.avatarUrl,
+                            gender: userInfo.gender
+                        },
+                        method: 'POST',
+                        dataType: 'json',
+                        responseType: 'text',
+                        success: function(r) {},
+                        fail: function(r) {},
+                        complete: function(r) {}
                     });
                 }
             });

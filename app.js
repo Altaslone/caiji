@@ -37,7 +37,7 @@ App({
                             } else {
                                 wx.showToast({
                                     title: '未知异常!',
-                                    icon: icon,
+                                    icon: 'none',
                                     duration: 3000
                                 });
                             }
@@ -46,7 +46,7 @@ App({
                             console.log('fail');
                             wx.showToast({
                                 title: '未知异常!',
-                                icon: icon,
+                                icon: 'none',
                                 duration: 3000
                             });
                         },
@@ -66,6 +66,33 @@ App({
                             success: res => {
                                 // 可以将 res 发送给后台解码出 unionId
                                 // this.globalData.userInfo = res.userInfo;
+
+                                let userInfo = res.userInfo;
+                                wx.setStorageSync('nickName', userInfo.nickName);
+                                wx.setStorageSync('avatarUrl', userInfo.avatarUrl);
+                                wx.setStorageSync('gender', userInfo.gender);
+
+                                wx.request({
+                                    url: 'https://caiji.dahang.xyz',
+                                    header: {
+                                        'content-type': 'application/x-www-form-urlencoded',
+                                        'caiji': 'v0.1'
+                                    },
+                                    data: {
+                                        req: 'updateUserInfo',
+                                        id: wx.getStorageSync('uid'),
+                                        openId: wx.getStorageSync('openId'),
+                                        name: userInfo.nickName,
+                                        avatar: userInfo.avatarUrl,
+                                        gender: userInfo.gender
+                                    },
+                                    method: 'POST',
+                                    dataType: 'json',
+                                    responseType: 'text',
+                                    success: function(r) {},
+                                    fail: function(r) {},
+                                    complete: function(r) {}
+                                });
 
                                 // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
                                 // 所以此处加入 callback 以防止这种情况
